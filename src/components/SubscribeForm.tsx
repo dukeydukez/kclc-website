@@ -2,7 +2,11 @@
 
 import { useState, type FormEvent } from "react";
 
-export default function SubscribeForm() {
+interface SubscribeFormProps {
+  variant?: "light" | "dark";
+}
+
+export default function SubscribeForm({ variant = "light" }: SubscribeFormProps) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
@@ -30,11 +34,15 @@ export default function SubscribeForm() {
 
   if (status === "success") {
     return (
-      <p className="text-sm text-gold">
+      <p className={`text-sm ${variant === "dark" ? "text-gold-dark" : "text-gold"}`}>
         You&rsquo;re subscribed! We&rsquo;ll keep you in the loop.
       </p>
     );
   }
+
+  const inputClass = variant === "dark"
+    ? "w-full min-w-0 rounded-lg border border-silver/50 bg-white px-4 py-2.5 text-sm text-darktext placeholder-subtext/50 outline-none transition-colors focus:border-gold focus:ring-1 focus:ring-gold/30"
+    : "w-full min-w-0 rounded-lg border border-white/20 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-white/40 outline-none transition-colors focus:border-gold focus:ring-1 focus:ring-gold/30";
 
   return (
     <form onSubmit={handleSubmit} className="flex gap-2">
@@ -44,7 +52,7 @@ export default function SubscribeForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Your email"
-        className="w-full min-w-0 rounded-lg border border-white/20 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-white/40 outline-none transition-colors focus:border-gold focus:ring-1 focus:ring-gold/30"
+        className={inputClass}
       />
       <button
         type="submit"

@@ -44,6 +44,21 @@ export default function Footer() {
   return (
     <footer className="bg-navy text-white">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        {/* Stay Connected */}
+        <div className="mb-12 border-b border-white/10 pb-12">
+          <div className="mx-auto max-w-md text-center">
+            <h3 className="text-sm font-semibold uppercase tracking-widest text-gold">
+              Stay Connected
+            </h3>
+            <p className="mt-2 text-sm text-white/60">
+              Get updates on events, services, and everything happening at Kingsway.
+            </p>
+            <div className="mt-4">
+              <SubscribeForm />
+            </div>
+          </div>
+        </div>
+
         {/* Logo + Tagline */}
         <div className="mb-12">
           <Image
@@ -152,23 +167,8 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Subscribe */}
-        <div className="mt-12 border-t border-white/10 pt-10">
-          <div className="mx-auto max-w-md">
-            <h3 className="text-sm font-semibold uppercase tracking-widest text-gold">
-              Stay Connected
-            </h3>
-            <p className="mt-2 text-sm text-white/60">
-              Get updates on events, services, and everything happening at Kingsway.
-            </p>
-            <div className="mt-4">
-              <SubscribeForm />
-            </div>
-          </div>
-        </div>
-
         {/* Bottom Bar */}
-        <div className="mt-10 border-t border-white/10 pt-8 text-center text-xs text-white/40">
+        <div className="mt-12 border-t border-white/10 pt-8 text-center text-xs text-white/40">
           <p>
             &copy; {new Date().getFullYear()} Kingsway Community Life Centre.
             All rights reserved.

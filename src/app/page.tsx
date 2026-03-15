@@ -6,6 +6,7 @@ import StatsBar from "@/components/StatsBar";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
 import LiveOrCountdown from "@/components/LiveOrCountdown";
 import FadeIn from "@/components/FadeIn";
+import SubscribeForm from "@/components/SubscribeForm";
 
 const ministryCards = [
   {
@@ -145,6 +146,24 @@ export default function HomePage() {
               </svg>
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* Subscribe Banner */}
+      <section className="bg-offwhite py-16 lg:py-20">
+        <div className="mx-auto max-w-2xl px-4 text-center sm:px-6">
+          <FadeIn>
+            <h2 className="font-display text-3xl text-navy sm:text-4xl">
+              Stay in the Loop
+            </h2>
+            <p className="mx-auto mt-4 max-w-lg text-subtext">
+              Get updates on upcoming events, services, and everything
+              happening at Kingsway straight to your inbox.
+            </p>
+            <div className="mx-auto mt-8 max-w-md">
+              <SubscribeForm variant="dark" />
+            </div>
+          </FadeIn>
         </div>
       </section>
 
