@@ -90,8 +90,8 @@ export default function ConnectPage() {
       <PageHero
         title="Connect"
         subtitle="Get involved. Get in touch. We'd love to hear from you."
-        image="/fellowship.jpg"
-        imageAlt="KCLC members in fellowship and conversation"
+        image="/connect-hero.jpg"
+        imageAlt="Father holding daughter at KCLC community gathering"
       />
 
       {/* Get Involved */}
