@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import SubscribeForm from "./SubscribeForm";
 
 const quickLinks = [
   { label: "About", href: "/about" },
@@ -151,8 +152,23 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Subscribe */}
+        <div className="mt-12 border-t border-white/10 pt-10">
+          <div className="mx-auto max-w-md">
+            <h3 className="text-sm font-semibold uppercase tracking-widest text-gold">
+              Stay Connected
+            </h3>
+            <p className="mt-2 text-sm text-white/60">
+              Get updates on events, services, and everything happening at Kingsway.
+            </p>
+            <div className="mt-4">
+              <SubscribeForm />
+            </div>
+          </div>
+        </div>
+
         {/* Bottom Bar */}
-        <div className="mt-12 border-t border-white/10 pt-8 text-center text-xs text-white/40">
+        <div className="mt-10 border-t border-white/10 pt-8 text-center text-xs text-white/40">
           <p>
             &copy; {new Date().getFullYear()} Kingsway Community Life Centre.
             All rights reserved.
