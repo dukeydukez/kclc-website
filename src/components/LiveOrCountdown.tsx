@@ -11,7 +11,7 @@ function isLiveNow(): boolean {
   const hours = est.getHours();
   const minutes = est.getMinutes();
   const totalMinutes = hours * 60 + minutes;
-  return day === 0 && totalMinutes >= 585 && totalMinutes <= 750;
+  return day === 0 && totalMinutes >= 585 && totalMinutes <= 720;
 }
 
 function getNextSunday10AM(): Date {

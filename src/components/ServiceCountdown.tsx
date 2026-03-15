@@ -20,7 +20,7 @@ function getNextSunday10AM(): Date {
   const day = est.getDay(); // 0 = Sunday
   let daysUntilSunday = (7 - day) % 7;
 
-  // If it's Sunday but past 12:30 PM, target next Sunday
+  // If it's Sunday but past 12:00 PM, target next Sunday
   if (day === 0 && est.getHours() >= 13) {
     daysUntilSunday = 7;
   }
@@ -46,7 +46,7 @@ function isLiveNow(): boolean {
   const minutes = est.getMinutes();
   const totalMinutes = hours * 60 + minutes;
 
-  // Sunday between 9:45 AM (585 min) and 12:30 PM (750 min)
+  // Sunday between 9:45 AM (585 min) and 12:00 PM (750 min)
   return day === 0 && totalMinutes >= 585 && totalMinutes <= 750;
 }
 

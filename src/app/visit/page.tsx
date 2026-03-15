@@ -20,7 +20,7 @@ const infoCards = [
     lines: [
       "Every Sunday",
       "Opening Prayer: 9:45 AM",
-      "Worship Service: 10:00 AM \u2013 12:30 PM",
+      "Worship Service: 10:00 AM \u2013 12:00 PM",
     ],
   },
   {
@@ -122,7 +122,7 @@ export default function VisitPage() {
             <p className="mt-6 text-lg leading-relaxed text-subtext">
               Our Sunday services begin with opening prayer at 9:45 AM, followed
               by worship, praise, and a message from Pastor Brown. The service
-              runs until about 12:30 PM. After service, stick around for
+              runs until about 12:00 PM. After service, stick around for
               fellowship, conversation, and connection. That&rsquo;s where the
               real community happens.
             </p>

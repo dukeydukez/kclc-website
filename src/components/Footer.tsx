@@ -116,7 +116,7 @@ export default function Footer() {
               <div>
                 <p className="font-semibold text-white">Sunday Worship</p>
                 <p>Opening Prayer: 9:45 AM</p>
-                <p>Worship Service: 10:00 AM &ndash; 12:30 PM</p>
+                <p>Worship Service: 10:00 AM &ndash; 12:00 PM</p>
               </div>
               <div className="pt-2">
                 <p className="font-semibold text-white">Location</p>
