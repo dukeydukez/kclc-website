@@ -1,0 +1,43 @@
+.wrapper {
+  background-color: var(--color-navy);
+  overflow: hidden;
+  padding: 1rem 0;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: scroll 40s linear infinite;
+}
+
+.content {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.item {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  white-space: nowrap;
+  padding: 0 0.5rem;
+}
+
+.dot {
+  color: var(--color-gold);
+  margin: 0 1.25rem;
+  font-size: 0.75rem;
+  vertical-align: middle;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
