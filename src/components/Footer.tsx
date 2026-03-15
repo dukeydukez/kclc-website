@@ -142,10 +142,10 @@ export default function Footer() {
               </p>
               <p>
                 <a
-                  href="mailto:info@kclcministries.org"
+                  href="mailto:admin@kclcministries.org"
                   className="transition-colors hover:text-gold"
                 >
-                  info@kclcministries.org
+                  admin@kclcministries.org
                 </a>
               </p>
               {/* Social Icons */}

@@ -296,10 +296,10 @@ export default function ConnectPage() {
                     <div>
                       <h4 className="text-sm font-semibold text-navy">Email</h4>
                       <a
-                        href="mailto:info@kclcministries.org"
+                        href="mailto:admin@kclcministries.org"
                         className="mt-1 block text-sm text-subtext hover:text-gold transition-colors"
                       >
-                        info@kclcministries.org
+                        admin@kclcministries.org
                       </a>
                     </div>
                   </div>
