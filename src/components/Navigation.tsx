@@ -72,12 +72,14 @@ export default function Navigation() {
                 {link.label}
               </Link>
             ))}
-            <Link
-              href="/visit"
+            <a
+              href="https://kclcministries.churchcenter.com/giving"
+              target="_blank"
+              rel="noopener noreferrer"
               className="rounded-full bg-gold px-6 py-2.5 text-sm font-semibold text-navy transition-all hover:bg-gold-dark hover:shadow-lg"
             >
-              Plan Your Visit
-            </Link>
+              Give Now
+            </a>
           </div>
 
           {/* Mobile Hamburger */}
@@ -150,13 +152,15 @@ export default function Navigation() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.35 }}
               >
-                <Link
-                  href="/visit"
+                <a
+                  href="https://kclcministries.churchcenter.com/giving"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setIsMobileOpen(false)}
                   className="mt-4 inline-block rounded-full bg-gold px-8 py-3 text-lg font-semibold text-navy transition-all hover:bg-gold-dark"
                 >
-                  Plan Your Visit
-                </Link>
+                  Give Now
+                </a>
               </motion.div>
             </div>
           </motion.div>

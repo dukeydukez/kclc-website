@@ -15,8 +15,8 @@ export default function WatchPage() {
       <PageHero
         title="Watch"
         subtitle="Missed a Sunday? Catch up on the latest messages."
-        image="/musician.jpg"
-        imageAlt="KCLC musician leading worship"
+        image="/watch-hero.jpg"
+        imageAlt="KCLC worship service congregation"
         imagePosition="center 30%"
       />
 

@@ -21,6 +21,10 @@ export const metadata: Metadata = {
     "Kingsway Community Life Centre",
     "KCLC",
   ],
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
+  },
   openGraph: {
     title: "Kingsway Community Life Centre",
     description: "Loving You Back to Life & Destiny",

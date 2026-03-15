@@ -187,8 +187,8 @@ export default function HomePage() {
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-xl">
               <Image
-                src="/pastor-pulpit.jpg"
-                alt="Pastor Brown at pulpit with KCLC brand wall"
+                src="/plan-visit.jpg"
+                alt="KCLC congregation standing in worship"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"

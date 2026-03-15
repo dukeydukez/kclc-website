@@ -37,8 +37,8 @@ const givingMethods = [
     ),
     title: "Online Giving",
     description:
-      "Online giving is coming soon. We're setting up a secure platform so you can give from anywhere, anytime.",
-    comingSoon: true,
+      "Give securely from anywhere, anytime through our online giving platform.",
+    link: "https://kclcministries.churchcenter.com/giving",
   },
 ];
 
@@ -105,11 +105,6 @@ export default function GivePage() {
             {givingMethods.map((method, i) => (
               <FadeIn key={method.title} delay={i * 0.08}>
                 <div className="relative h-full rounded-xl border border-silver/40 bg-white p-8 text-center shadow-sm">
-                  {method.comingSoon && (
-                    <span className="absolute right-4 top-4 rounded-full bg-gold/10 px-3 py-1 text-xs font-semibold text-gold-dark">
-                      Coming Soon
-                    </span>
-                  )}
                   <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gold/10 text-gold">
                     {method.icon}
                   </div>
@@ -123,6 +118,16 @@ export default function GivePage() {
                     <p className="mt-3 text-sm font-semibold text-navy">
                       {method.highlight}
                     </p>
+                  )}
+                  {method.link && (
+                    <a
+                      href={method.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 inline-block rounded-lg bg-gold px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-gold-dark"
+                    >
+                      Give Now
+                    </a>
                   )}
                 </div>
               </FadeIn>
