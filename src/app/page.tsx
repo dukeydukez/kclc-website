@@ -5,6 +5,7 @@ import Marquee from "@/components/Marquee";
 import StatsBar from "@/components/StatsBar";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
 import LiveOrCountdown from "@/components/LiveOrCountdown";
+import FadeIn from "@/components/FadeIn";
 
 const ministryCards = [
   {
@@ -72,33 +73,39 @@ export default function HomePage() {
       {/* B. Welcome Section */}
       <section className="bg-offwhite py-20 lg:py-28">
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6">
-          <h2 className="font-display text-3xl leading-tight text-navy sm:text-4xl lg:text-5xl">
-            Welcome to Kingsway
-          </h2>
-          <div className="mx-auto mt-6 max-w-2xl space-y-4 text-lg leading-relaxed text-subtext">
-            <p>
-              We&apos;re a church that believes in the power of restoration. No
-              matter where you&apos;ve been or what you&apos;ve walked through, there&apos;s
-              a place for you here.
-            </p>
-            <p>
-              Under the leadership of Pastor Richard J. Brown, Kingsway
-              Community Life Centre is a family rooted in faith, driven by
-              purpose, and committed to seeing every person walk in the
-              fullness of their God-given destiny.
-            </p>
-          </div>
-          <div className="mt-10">
-            <Link
-              href="/about"
-              className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-navy transition-colors hover:text-gold-dark"
-            >
-              Learn More About Us
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-              </svg>
-            </Link>
-          </div>
+          <FadeIn>
+            <h2 className="font-display text-3xl leading-tight text-navy sm:text-4xl lg:text-5xl">
+              Welcome to Kingsway
+            </h2>
+          </FadeIn>
+          <FadeIn delay={0.1}>
+            <div className="mx-auto mt-6 max-w-2xl space-y-4 text-lg leading-relaxed text-subtext">
+              <p>
+                We&apos;re a church that believes in the power of restoration. No
+                matter where you&apos;ve been or what you&apos;ve walked through, there&apos;s
+                a place for you here.
+              </p>
+              <p>
+                Under the leadership of Pastor Richard J. Brown, Kingsway
+                Community Life Centre is a family rooted in faith, driven by
+                purpose, and committed to seeing every person walk in the
+                fullness of their God-given destiny.
+              </p>
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.2}>
+            <div className="mt-10">
+              <Link
+                href="/about"
+                className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-navy transition-colors hover:text-gold-dark"
+              >
+                Learn More About Us
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+              </Link>
+            </div>
+          </FadeIn>
         </div>
       </section>
 
@@ -108,12 +115,14 @@ export default function HomePage() {
       {/* C. Latest Sermon Section */}
       <section className="bg-navy py-20 lg:py-28">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <p className="text-center text-sm font-semibold uppercase tracking-widest text-gold">
-            This Week&apos;s Message
-          </p>
-          <h2 className="mt-3 text-center font-display text-3xl text-white sm:text-4xl lg:text-5xl">
-            Watch the Latest Sermon
-          </h2>
+          <FadeIn>
+            <p className="text-center text-sm font-semibold uppercase tracking-widest text-gold">
+              This Week&apos;s Message
+            </p>
+            <h2 className="mt-3 text-center font-display text-3xl text-white sm:text-4xl lg:text-5xl">
+              Watch the Latest Sermon
+            </h2>
+          </FadeIn>
 
           <div className="mx-auto mt-10 max-w-4xl">
             <LiveOrCountdown />
@@ -142,18 +151,20 @@ export default function HomePage() {
       {/* D. Ministry Cards Section */}
       <section className="bg-offwhite py-20 lg:py-28">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="text-center font-display text-3xl text-navy sm:text-4xl lg:text-5xl">
-            Get Involved
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-center text-subtext">
-            There are many ways to grow, serve, and connect at Kingsway. Find
-            your place in the family.
-          </p>
+          <FadeIn>
+            <h2 className="text-center font-display text-3xl text-navy sm:text-4xl lg:text-5xl">
+              Get Involved
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-center text-subtext">
+              There are many ways to grow, serve, and connect at Kingsway. Find
+              your place in the family.
+            </p>
+          </FadeIn>
 
           <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {ministryCards.map((card) => (
+            {ministryCards.map((card, i) => (
+              <FadeIn key={card.title} delay={i * 0.1}>
               <Link
-                key={card.title}
                 href={card.href}
                 className="group flex h-full flex-col rounded-2xl border border-silver/30 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
               >
@@ -173,6 +184,7 @@ export default function HomePage() {
                   </svg>
                 </span>
               </Link>
+              </FadeIn>
             ))}
           </div>
         </div>
@@ -185,16 +197,19 @@ export default function HomePage() {
       <section className="bg-white py-20 lg:py-28">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-xl">
-              <Image
-                src="/plan-visit.jpg"
-                alt="KCLC congregation standing in worship"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </div>
+            <FadeIn direction="left">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-xl">
+                <Image
+                  src="/plan-visit.jpg"
+                  alt="KCLC congregation standing in worship"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
+            </FadeIn>
 
+            <FadeIn direction="right" delay={0.15}>
             <div>
               <p className="text-sm font-semibold uppercase tracking-widest text-gold-dark">
                 Your First Visit
@@ -237,6 +252,7 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
+            </FadeIn>
           </div>
         </div>
       </section>
@@ -244,9 +260,11 @@ export default function HomePage() {
       {/* F. Community Gallery */}
       <section className="bg-navy py-16 lg:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <h2 className="mb-10 text-center font-display text-3xl text-white sm:text-4xl">
-            Life at Kingsway
-          </h2>
+          <FadeIn>
+            <h2 className="mb-10 text-center font-display text-3xl text-white sm:text-4xl">
+              Life at Kingsway
+            </h2>
+          </FadeIn>
           <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
             {galleryImages.map((img) => (
               <div key={img.src} className="group relative aspect-square overflow-hidden rounded-xl">
@@ -267,21 +285,23 @@ export default function HomePage() {
       {/* G. "New Here?" CTA Banner */}
       <section className="bg-gold py-16 lg:py-20">
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6">
-          <h2 className="font-display text-3xl text-navy sm:text-4xl lg:text-5xl">
-            New Here?
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-navy/80">
-            Your first visit is important to us. We&apos;d love to welcome you to
-            the Kingsway family and help you feel right at home.
-          </p>
-          <div className="mt-8">
-            <Link
-              href="/visit"
-              className="inline-block rounded-full bg-navy px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-navy-light hover:shadow-lg"
-            >
-              Plan Your Visit
-            </Link>
-          </div>
+          <FadeIn>
+            <h2 className="font-display text-3xl text-navy sm:text-4xl lg:text-5xl">
+              New Here?
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-lg text-navy/80">
+              Your first visit is important to us. We&apos;d love to welcome you to
+              the Kingsway family and help you feel right at home.
+            </p>
+            <div className="mt-8">
+              <Link
+                href="/visit"
+                className="inline-block rounded-full bg-navy px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-navy-light hover:shadow-lg"
+              >
+                Plan Your Visit
+              </Link>
+            </div>
+          </FadeIn>
         </div>
       </section>
     </>
