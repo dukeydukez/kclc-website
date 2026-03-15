@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import FadeIn from "@/components/FadeIn";
 import SermonGrid from "@/components/SermonGrid";
+import LatestSermon from "@/components/LatestSermon";
 
 export const metadata: Metadata = {
   title: "Watch | Kingsway Community Life Centre",
@@ -30,28 +31,7 @@ export default function WatchPage() {
             <div className="mt-2 h-1 w-16 bg-gold" />
           </FadeIn>
           <FadeIn delay={0.1}>
-            <div className="mt-10 overflow-hidden rounded-2xl bg-navy shadow-xl">
-              <div className="relative aspect-video w-full">
-                <iframe
-                  src="https://www.youtube.com/embed/videoseries?list=UUdbja-jeoPwwSg2MGLTTVGA"
-                  title="Latest from Kingsway Community Life Centre"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="absolute inset-0 h-full w-full"
-                />
-              </div>
-              <div className="p-6 sm:p-8">
-                <p className="text-sm font-medium uppercase tracking-widest text-gold">
-                  Most Recent
-                </p>
-                <h3 className="mt-2 font-display text-2xl font-bold text-white">
-                  Latest from Kingsway Community Life Centre
-                </h3>
-                <p className="mt-2 text-sm text-white/60">
-                  Auto-updates with the latest stream from our YouTube channel
-                </p>
-              </div>
-            </div>
+            <LatestSermon />
           </FadeIn>
         </div>
       </section>
