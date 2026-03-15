@@ -55,7 +55,7 @@ export default function HeroSection() {
           transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
           className="mx-auto mt-6 max-w-lg text-lg text-white/80 sm:text-xl"
         >
-          Join us every Sunday at 10:00 AM
+          Join us every Sunday from 10:00 AM to 12:00 PM
         </motion.p>
 
         <motion.div
