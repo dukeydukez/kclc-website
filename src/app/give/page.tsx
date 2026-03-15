@@ -27,7 +27,7 @@ const givingMethods = [
     ),
     title: "E-Transfer",
     description: "Send your offering via Interac e-Transfer to:",
-    highlight: "info@kclcministries.org",
+    highlight: "finance@kclcministries.org",
   },
   {
     icon: (
