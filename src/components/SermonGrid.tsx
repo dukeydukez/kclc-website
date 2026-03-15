@@ -58,11 +58,7 @@ export default function SermonGrid({ channelId, perPage }: SermonGridProps) {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
-    // Use a CORS proxy for client-side fetch
-    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(feedUrl)}`;
-
-    fetch(proxyUrl)
+    fetch(`/api/youtube?channelId=${channelId}`)
       .then((res) => {
         if (!res.ok) throw new Error("Feed fetch failed");
         return res.text();

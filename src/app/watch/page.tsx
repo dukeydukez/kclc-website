@@ -33,7 +33,7 @@ export default function WatchPage() {
             <div className="mt-10 overflow-hidden rounded-2xl bg-navy shadow-xl">
               <div className="relative aspect-video w-full">
                 <iframe
-                  src="https://www.youtube.com/embed?listType=playlist&list=UUdbja-jeoPwwSg2MGLTTVGA"
+                  src="https://www.youtube.com/embed/videoseries?list=UUdbja-jeoPwwSg2MGLTTVGA"
                   title="Latest from Kingsway Community Life Centre"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
