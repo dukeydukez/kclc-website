@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState, type FormEvent } from "react";
 import PageHero from "@/components/PageHero";
 import FadeIn from "@/components/FadeIn";
+import ServiceRequestForm from "@/components/ServiceRequestForm";
 
 const involvementCards = [
   {
@@ -123,6 +124,25 @@ export default function ConnectPage() {
               </FadeIn>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* How Can We Serve You */}
+      <section className="bg-offwhite py-20 lg:py-28">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <FadeIn>
+            <h2 className="font-display text-3xl font-bold text-navy md:text-4xl">
+              How Can We Serve You?
+            </h2>
+            <div className="mt-2 h-1 w-16 bg-gold" />
+            <p className="mt-6 text-lg text-subtext">
+              Beyond Sunday service, we&rsquo;re here for you. Let us know what you need and
+              we&rsquo;ll connect you with the right person.
+            </p>
+          </FadeIn>
+          <FadeIn delay={0.1}>
+            <ServiceRequestForm />
+          </FadeIn>
         </div>
       </section>
 
