@@ -173,6 +173,17 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Kingsway Community Life Centre.
             All rights reserved.
           </p>
+          <p className="mt-2">
+            Designed by{" "}
+            <a
+              href="https://corexcreative.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gold/60 transition-colors hover:text-gold"
+            >
+              Corex Creative
+            </a>
+          </p>
         </div>
       </div>
     </footer>
