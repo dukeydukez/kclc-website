@@ -54,7 +54,7 @@ export async function POST(request: Request) {
       `;
 
     const { error } = await resend.emails.send({
-      from: "KCLC Website <onboarding@resend.dev>",
+      from: "KCLC Website <noreply@kclc.corexcreative.com>",
       to: [CONTACT_EMAIL],
       replyTo: body.email,
       subject,
