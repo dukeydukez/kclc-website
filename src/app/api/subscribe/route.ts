@@ -1,17 +1,7 @@
 import { NextResponse } from "next/server";
-import { promises as fs } from "fs";
-import path from "path";
 
-const SUBSCRIBERS_FILE = path.join(process.cwd(), "subscribers.json");
-
-async function getSubscribers(): Promise<string[]> {
-  try {
-    const data = await fs.readFile(SUBSCRIBERS_FILE, "utf-8");
-    return JSON.parse(data);
-  } catch {
-    return [];
-  }
-}
+const BEEHIIV_API_KEY = process.env.BEEHIIV_API_KEY ?? "";
+const BEEHIIV_PUBLICATION_ID = process.env.BEEHIIV_PUBLICATION_ID ?? "";
 
 export async function POST(request: Request) {
   try {
@@ -21,18 +11,34 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Valid email required" }, { status: 400 });
     }
 
-    const normalised = email.toLowerCase().trim();
-    const subscribers = await getSubscribers();
+    const res = await fetch(
+      `https://api.beehiiv.com/v2/publications/${BEEHIIV_PUBLICATION_ID}/subscriptions`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${BEEHIIV_API_KEY}`,
+        },
+        body: JSON.stringify({
+          email: email.toLowerCase().trim(),
+          reactivate_existing: true,
+          send_welcome_email: true,
+        }),
+      },
+    );
 
-    if (subscribers.includes(normalised)) {
-      return NextResponse.json({ message: "Already subscribed" });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      console.error("Beehiiv error:", res.status, data);
+      return NextResponse.json(
+        { error: "Failed to subscribe. Please try again." },
+        { status: 500 },
+      );
     }
 
-    subscribers.push(normalised);
-    await fs.writeFile(SUBSCRIBERS_FILE, JSON.stringify(subscribers, null, 2));
-
     return NextResponse.json({ message: "Subscribed" });
-  } catch {
+  } catch (err) {
+    console.error("Subscribe API error:", err);
     return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
   }
 }

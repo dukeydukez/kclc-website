@@ -79,11 +79,37 @@ export default function ConnectPage() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    // Form submission would be handled by a backend/API route
-    setSubmitted(true);
+    setSending(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formState.name,
+          email: formState.email,
+          message: formState.message,
+          formType: "message",
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error ?? "Failed to send message.");
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+    } finally {
+      setSending(false);
+    }
   }
 
   return (
@@ -231,11 +257,15 @@ export default function ConnectPage() {
                         placeholder="How can we help?"
                       />
                     </div>
+                    {error && (
+                      <p className="text-sm text-red-600">{error}</p>
+                    )}
                     <button
                       type="submit"
-                      className="w-full rounded-lg bg-gold px-6 py-3.5 text-sm font-semibold text-navy transition-all hover:bg-gold-dark hover:shadow-lg sm:w-auto"
+                      disabled={sending}
+                      className="w-full rounded-lg bg-gold px-6 py-3.5 text-sm font-semibold text-navy transition-all hover:bg-gold-dark hover:shadow-lg disabled:opacity-50 sm:w-auto"
                     >
-                      Send Message
+                      {sending ? "Sending..." : "Send Message"}
                     </button>
                   </form>
                 )}

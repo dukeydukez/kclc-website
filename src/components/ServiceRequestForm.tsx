@@ -22,6 +22,8 @@ export default function ServiceRequestForm() {
   const [email, setEmail] = useState("");
   const [details, setDetails] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
 
   function toggle(id: string) {
     setSelected((prev) =>
@@ -31,8 +33,37 @@ export default function ServiceRequestForm() {
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    // For now, just show confirmation. Backend can be added later.
-    setSubmitted(true);
+    setSending(true);
+    setError("");
+
+    const serviceLabels = selected.map(
+      (id) => services.find((s) => s.id === id)?.label ?? id,
+    );
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          services: serviceLabels,
+          details,
+          formType: "service-request",
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error ?? "Failed to send request.");
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+    } finally {
+      setSending(false);
+    }
   }
 
   if (submitted) {
@@ -133,11 +164,15 @@ export default function ServiceRequestForm() {
               placeholder="Anything else you'd like us to know?"
             />
           </div>
+          {error && (
+            <p className="text-sm text-red-600">{error}</p>
+          )}
           <button
             type="submit"
-            className="rounded-lg bg-gold px-8 py-3.5 text-sm font-semibold text-navy transition-all hover:bg-gold-dark hover:shadow-lg"
+            disabled={sending}
+            className="rounded-lg bg-gold px-8 py-3.5 text-sm font-semibold text-navy transition-all hover:bg-gold-dark hover:shadow-lg disabled:opacity-50"
           >
-            Submit Request
+            {sending ? "Sending..." : "Submit Request"}
           </button>
         </div>
       )}
