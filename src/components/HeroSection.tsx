@@ -18,7 +18,7 @@ export default function HeroSection() {
           src="/hero-pastor.jpg"
           alt="Pastor Brown preaching at Kingsway Community Life Centre"
           fill
-          className="object-cover object-center sm:object-[center_10%]"
+          className="object-cover object-[30%_20%] sm:object-[center_10%]"
           sizes="100vw"
           priority
         />
