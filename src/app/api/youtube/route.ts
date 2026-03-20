@@ -11,7 +11,12 @@ export async function GET(request: Request) {
   const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
 
   try {
-    const res = await fetch(feedUrl, { next: { revalidate: 3600 } });
+    const res = await fetch(feedUrl, {
+      next: { revalidate: 3600 },
+      headers: {
+        "User-Agent": "Mozilla/5.0 (compatible; KCLCWebsite/1.0)",
+      },
+    });
     if (!res.ok) throw new Error("Feed fetch failed");
     const xml = await res.text();
     return new NextResponse(xml, {
