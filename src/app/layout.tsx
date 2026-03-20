@@ -31,6 +31,12 @@ export const metadata: Metadata = {
     description: "Loving You Back to Life & Destiny",
     type: "website",
     url: "https://kclcministries.org",
+    images: [
+      {
+        url: "/kclc_logo2.png",
+        alt: "Kingsway Community Life Centre",
+      },
+    ],
   },
 };
 
