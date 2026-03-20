@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import videos from "@/data/videos.json";
 
 function isLiveNow(): boolean {
   const now = new Date();
@@ -92,7 +93,7 @@ export default function LiveOrCountdown() {
       {/* Background thumbnail */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="https://i.ytimg.com/vi/fMBPt3GFaJY/maxresdefault.jpg"
+        src={`https://i.ytimg.com/vi/${videos[0]?.id ?? "fMBPt3GFaJY"}/maxresdefault.jpg`}
         alt="Latest sermon"
         className="absolute inset-0 h-full w-full object-cover opacity-30"
       />
