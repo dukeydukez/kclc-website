@@ -1,32 +1,9 @@
-"use client";
-
-import { useState, useEffect } from "react";
+import videos from "@/data/videos.json";
 
 export default function LatestSermon() {
-  const [videoId, setVideoId] = useState<string | null>(null);
-  const [title, setTitle] = useState("Latest from Kingsway Community Life Centre");
+  const latest = videos[0];
 
-  useEffect(() => {
-    fetch("/api/youtube?channelId=UCdbja-jeoPwwSg2MGLTTVGA")
-      .then((res) => res.text())
-      .then((xml) => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(xml, "text/xml");
-        const firstEntry = doc.querySelector("entry");
-        if (firstEntry) {
-          const id = firstEntry.querySelector("videoId")?.textContent;
-          const videoTitle = firstEntry.querySelector("title")?.textContent;
-          if (id) setVideoId(id);
-          if (videoTitle) setTitle(videoTitle);
-        }
-      })
-      .catch(() => {
-        // Fallback to a known recent video
-        setVideoId("fMBPt3GFaJY");
-      });
-  }, []);
-
-  if (!videoId) {
+  if (!latest) {
     return (
       <div className="mt-10 overflow-hidden rounded-2xl bg-navy shadow-xl">
         <div className="relative aspect-video w-full animate-pulse bg-navy-light" />
@@ -42,8 +19,8 @@ export default function LatestSermon() {
     <div className="mt-10 overflow-hidden rounded-2xl bg-navy shadow-xl">
       <div className="relative aspect-video w-full">
         <iframe
-          src={`https://www.youtube.com/embed/${videoId}`}
-          title={title}
+          src={`https://www.youtube.com/embed/${latest.id}`}
+          title={latest.title}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
           className="absolute inset-0 h-full w-full"
@@ -54,10 +31,10 @@ export default function LatestSermon() {
           Most Recent
         </p>
         <h3 className="mt-2 font-display text-2xl font-bold text-white">
-          {title}
+          {latest.title}
         </h3>
         <p className="mt-2 text-sm text-white/60">
-          Auto-updates with the latest upload from our YouTube channel
+          Updated weekly with the latest upload from our YouTube channel
         </p>
       </div>
     </div>

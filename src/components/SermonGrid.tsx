@@ -1,41 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
-
-interface Video {
-  id: string;
-  title: string;
-  published: string;
-  thumbnail: string;
-}
+import { useState } from "react";
+import allVideos from "@/data/videos.json";
 
 interface SermonGridProps {
   channelId: string;
   perPage: number;
-}
-
-function parseRSS(xml: string): Video[] {
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(xml, "text/xml");
-  const entries = doc.querySelectorAll("entry");
-  const videos: Video[] = [];
-
-  entries.forEach((entry) => {
-    const videoId = entry.querySelector("videoId")?.textContent ?? "";
-    const title = entry.querySelector("title")?.textContent ?? "";
-    const published = entry.querySelector("published")?.textContent ?? "";
-
-    if (videoId) {
-      videos.push({
-        id: videoId,
-        title,
-        published,
-        thumbnail: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
-      });
-    }
-  });
-
-  return videos;
 }
 
 function formatDate(dateStr: string): string {
@@ -52,48 +22,14 @@ function formatDate(dateStr: string): string {
 }
 
 export default function SermonGrid({ channelId, perPage }: SermonGridProps) {
-  const [videos, setVideos] = useState<Video[]>([]);
   const [page, setPage] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
 
-  useEffect(() => {
-    fetch(`/api/youtube?channelId=${channelId}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Feed fetch failed");
-        return res.text();
-      })
-      .then((xml) => {
-        const parsed = parseRSS(xml);
-        setVideos(parsed);
-        setLoading(false);
-      })
-      .catch(() => {
-        setError(true);
-        setLoading(false);
-      });
-  }, [channelId]);
-
+  // Skip first video (shown by LatestSermon)
+  const videos = allVideos.slice(1);
   const totalPages = Math.ceil(videos.length / perPage);
   const pageVideos = videos.slice(page * perPage, (page + 1) * perPage);
 
-  if (loading) {
-    return (
-      <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {Array.from({ length: perPage }).map((_, i) => (
-          <div key={i} className="animate-pulse overflow-hidden rounded-xl bg-white shadow-sm">
-            <div className="aspect-video bg-silver/30" />
-            <div className="p-5 space-y-3">
-              <div className="h-5 w-3/4 rounded bg-silver/30" />
-              <div className="h-3 w-1/2 rounded bg-silver/20" />
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-  }
-
-  if (error || videos.length === 0) {
+  if (videos.length === 0) {
     return (
       <div className="mt-12 text-center">
         <p className="text-subtext">
