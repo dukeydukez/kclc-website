@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
 interface TimeLeft {
   days: number;
@@ -74,6 +75,8 @@ export default function ServiceCountdown() {
   });
   const [live, setLive] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
 
   const tick = useCallback(() => {
     setLive(isLiveNow());
@@ -101,9 +104,13 @@ export default function ServiceCountdown() {
         </span>
         <button
           onClick={() => {
-            const el = document.getElementById("live");
-            if (el) {
-              el.scrollIntoView({ behavior: "smooth" });
+            if (pathname === "/") {
+              const el = document.getElementById("live");
+              if (el) {
+                el.scrollIntoView({ behavior: "smooth" });
+              }
+            } else {
+              router.push("/#live");
             }
           }}
           className="ml-2 rounded-full bg-gold px-4 py-1 text-xs font-semibold text-navy transition-colors hover:bg-gold-dark"
