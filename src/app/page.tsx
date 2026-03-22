@@ -118,7 +118,7 @@ export default function HomePage() {
       <StatsBar />
 
       {/* C. Latest Sermon Section */}
-      <section className="bg-navy py-20 lg:py-28">
+      <section id="live" className="bg-navy py-20 lg:py-28">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <FadeIn>
             <p className="text-center text-sm font-semibold uppercase tracking-widest text-gold">

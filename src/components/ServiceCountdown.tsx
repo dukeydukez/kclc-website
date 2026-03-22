@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import Link from "next/link";
 
 interface TimeLeft {
   days: number;
@@ -100,12 +99,17 @@ export default function ServiceCountdown() {
         <span className="text-sm font-bold uppercase tracking-widest text-white">
           We&apos;re Live
         </span>
-        <Link
-          href="/watch"
+        <button
+          onClick={() => {
+            const el = document.getElementById("live");
+            if (el) {
+              el.scrollIntoView({ behavior: "smooth" });
+            }
+          }}
           className="ml-2 rounded-full bg-gold px-4 py-1 text-xs font-semibold text-navy transition-colors hover:bg-gold-dark"
         >
           Watch Now
-        </Link>
+        </button>
       </div>
     );
   }
