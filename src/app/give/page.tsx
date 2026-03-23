@@ -135,29 +135,27 @@ export default function GivePage() {
         </div>
       </section>
 
-      {/* Online Giving - Embedded Form */}
-      <section id="give-online" className="scroll-mt-24 bg-white py-20 lg:py-28">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      {/* Give Online CTA */}
+      <section id="give-online" className="scroll-mt-24 bg-gold py-20 lg:py-28">
+        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
           <FadeIn>
-            <h2 className="text-center font-display text-3xl font-bold text-navy md:text-4xl">
-              Give Online
+            <h2 className="font-display text-3xl font-bold text-navy md:text-4xl">
+              Ready to Give?
             </h2>
-            <div className="mx-auto mt-2 h-1 w-16 bg-gold" />
-            <p className="mx-auto mt-6 max-w-xl text-center text-subtext">
-              Give securely right here. No account required.
+            <p className="mx-auto mt-4 max-w-xl text-lg text-navy/70">
+              Give securely in seconds. No account required. Your donation stays on this page.
             </p>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <div className="mt-10 overflow-hidden rounded-2xl border border-silver/30 shadow-lg">
-              <iframe
-                src="https://kclcministries.churchcenter.com/giving?embed=true"
-                width="100%"
-                height="700"
-                style={{ border: "none", minHeight: "700px" }}
-                title="Give to Kingsway Community Life Centre"
-                allow="payment"
-              />
+            <div className="mt-10">
+              <a
+                href="https://kclcministries.churchcenter.com/giving?open-in-church-center-modal=true"
+                className="inline-block rounded-full bg-navy px-12 py-4 text-lg font-semibold text-white transition-all hover:bg-navy-light hover:shadow-lg"
+              >
+                Give Now
+              </a>
             </div>
+            <p className="mt-6 text-sm text-navy/50">
+              Secure giving powered by Church Center
+            </p>
           </FadeIn>
         </div>
       </section>
