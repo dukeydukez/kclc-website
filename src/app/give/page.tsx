@@ -38,7 +38,7 @@ const givingMethods = [
     title: "Online Giving",
     description:
       "Give securely from anywhere, anytime through our online giving platform.",
-    link: "https://kclcministries.churchcenter.com/giving",
+    link: "https://kclcministries.churchcenter.com/giving?open-in-church-center-modal=true",
   },
 ];
 
@@ -122,8 +122,6 @@ export default function GivePage() {
                   {method.link && (
                     <a
                       href={method.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
                       className="mt-4 inline-block rounded-lg bg-gold px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-gold-dark"
                     >
                       Give Now

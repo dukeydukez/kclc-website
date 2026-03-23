@@ -47,6 +47,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable}>
+      <head>
+        <script src="https://js.churchcenter.com/modal/v1" defer />
+      </head>
       <body className="antialiased">
         <Navigation />
         <main>{children}</main>

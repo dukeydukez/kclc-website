@@ -73,9 +73,7 @@ export default function Navigation() {
               </Link>
             ))}
             <a
-              href="https://kclcministries.churchcenter.com/giving"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="https://kclcministries.churchcenter.com/giving?open-in-church-center-modal=true"
               className="rounded-full bg-gold px-6 py-2.5 text-sm font-semibold text-navy transition-all hover:bg-gold-dark hover:shadow-lg"
             >
               Give Now
@@ -153,9 +151,7 @@ export default function Navigation() {
                 transition={{ delay: 0.35 }}
               >
                 <a
-                  href="https://kclcministries.churchcenter.com/giving"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="https://kclcministries.churchcenter.com/giving?open-in-church-center-modal=true"
                   onClick={() => setIsMobileOpen(false)}
                   className="mt-4 inline-block rounded-full bg-gold px-8 py-3 text-lg font-semibold text-navy transition-all hover:bg-gold-dark"
                 >
