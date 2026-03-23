@@ -50,6 +50,7 @@ export default function GivePage() {
         subtitle="Every act of generosity moves the mission forward."
         image="/community.jpg"
         imageAlt="KCLC community gathered together"
+        imagePosition="center 30%"
       />
 
       {/* Why We Give */}
