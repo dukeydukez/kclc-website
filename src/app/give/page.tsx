@@ -38,7 +38,7 @@ const givingMethods = [
     title: "Online Giving",
     description:
       "Give securely from anywhere, anytime through our online giving platform.",
-    link: "https://kclcministries.churchcenter.com/giving?open-in-church-center-modal=true",
+    scrollTo: "give-online",
   },
 ];
 
@@ -120,9 +120,9 @@ export default function GivePage() {
                       {method.highlight}
                     </p>
                   )}
-                  {method.link && (
+                  {method.scrollTo && (
                     <a
-                      href={method.link}
+                      href={`#${method.scrollTo}`}
                       className="mt-4 inline-block rounded-lg bg-gold px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-gold-dark"
                     >
                       Give Now
@@ -132,6 +132,33 @@ export default function GivePage() {
               </FadeIn>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Online Giving - Embedded Form */}
+      <section id="give-online" className="scroll-mt-24 bg-white py-20 lg:py-28">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <FadeIn>
+            <h2 className="text-center font-display text-3xl font-bold text-navy md:text-4xl">
+              Give Online
+            </h2>
+            <div className="mx-auto mt-2 h-1 w-16 bg-gold" />
+            <p className="mx-auto mt-6 max-w-xl text-center text-subtext">
+              Give securely right here. No account required.
+            </p>
+          </FadeIn>
+          <FadeIn delay={0.1}>
+            <div className="mt-10 overflow-hidden rounded-2xl border border-silver/30 shadow-lg">
+              <iframe
+                src="https://kclcministries.churchcenter.com/giving?embed=true"
+                width="100%"
+                height="700"
+                style={{ border: "none", minHeight: "700px" }}
+                title="Give to Kingsway Community Life Centre"
+                allow="payment"
+              />
+            </div>
+          </FadeIn>
         </div>
       </section>
 
