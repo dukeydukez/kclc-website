@@ -48,9 +48,9 @@ export default function GivePage() {
       <PageHero
         title="Give"
         subtitle="Every act of generosity moves the mission forward."
-        image="/community.jpg"
-        imageAlt="KCLC community gathered together"
-        imagePosition="center 30%"
+        image="/give-hero.jpg"
+        imageAlt="KCLC congregation holding hands in prayer"
+        imagePosition="center 40%"
       />
 
       {/* Why We Give */}
