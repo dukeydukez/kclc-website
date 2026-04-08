@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, type FormEvent } from "react";
+import { useState, useRef, useEffect, type FormEvent } from "react";
 import PageHero from "@/components/PageHero";
 import FadeIn from "@/components/FadeIn";
 import ServiceRequestForm from "@/components/ServiceRequestForm";
@@ -81,6 +81,8 @@ export default function ConnectPage() {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
+  const [honeypot, setHoneypot] = useState("");
+  const formLoadedAt = useRef(Date.now());
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -96,6 +98,8 @@ export default function ConnectPage() {
           email: formState.email,
           message: formState.message,
           formType: "message",
+          website: honeypot,
+          _ts: formLoadedAt.current,
         }),
       });
 
@@ -255,6 +259,19 @@ export default function ConnectPage() {
                         }
                         className="mt-1.5 w-full resize-none rounded-lg border border-silver/60 bg-white px-4 py-3 text-sm text-darktext outline-none transition-colors focus:border-gold focus:ring-2 focus:ring-gold/20"
                         placeholder="How can we help?"
+                      />
+                    </div>
+                    {/* Honeypot - hidden from real users, bots auto-fill it */}
+                    <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", top: "-9999px" }}>
+                      <label htmlFor="website">Website</label>
+                      <input
+                        id="website"
+                        type="text"
+                        name="website"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        value={honeypot}
+                        onChange={(e) => setHoneypot(e.target.value)}
                       />
                     </div>
                     {error && (

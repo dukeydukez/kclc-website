@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useRef, type FormEvent } from "react";
 
 const services = [
   { id: "counselling", label: "Pastoral Counselling", description: "One-on-one spiritual guidance and support" },
@@ -24,6 +24,8 @@ export default function ServiceRequestForm() {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
+  const [honeypot, setHoneypot] = useState("");
+  const formLoadedAt = useRef(Date.now());
 
   function toggle(id: string) {
     setSelected((prev) =>
@@ -50,6 +52,8 @@ export default function ServiceRequestForm() {
           services: serviceLabels,
           details,
           formType: "service-request",
+          website: honeypot,
+          _ts: formLoadedAt.current,
         }),
       });
 
@@ -162,6 +166,19 @@ export default function ServiceRequestForm() {
               onChange={(e) => setDetails(e.target.value)}
               className="mt-1.5 w-full resize-none rounded-lg border border-silver/60 bg-white px-4 py-3 text-sm text-darktext outline-none transition-colors focus:border-gold focus:ring-2 focus:ring-gold/20"
               placeholder="Anything else you'd like us to know?"
+            />
+          </div>
+          {/* Honeypot - hidden from real users, bots auto-fill it */}
+          <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", top: "-9999px" }}>
+            <label htmlFor="service-website">Website</label>
+            <input
+              id="service-website"
+              type="text"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
             />
           </div>
           {error && (

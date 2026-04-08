@@ -13,11 +13,25 @@ interface ContactBody {
   services?: string[];
   details?: string;
   formType: "message" | "service-request";
+  website?: string; // honeypot field - should always be empty
+  _ts?: number; // form load timestamp
 }
 
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as ContactBody;
+
+    // Spam protection: reject if honeypot field is filled (bots auto-fill hidden fields)
+    if (body.website) {
+      // Return success to avoid tipping off the bot
+      return NextResponse.json({ success: true });
+    }
+
+    // Spam protection: reject if form was submitted too quickly (under 2 seconds)
+    const MIN_SUBMIT_TIME_MS = 2000;
+    if (body._ts && Date.now() - body._ts < MIN_SUBMIT_TIME_MS) {
+      return NextResponse.json({ success: true });
+    }
 
     if (!body.name?.trim() || !body.email?.trim()) {
       return NextResponse.json(
