@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useRef, useEffect, type FormEvent } from "react";
+import { useState, useRef, type FormEvent } from "react";
 import PageHero from "@/components/PageHero";
 import FadeIn from "@/components/FadeIn";
 import ServiceRequestForm from "@/components/ServiceRequestForm";
