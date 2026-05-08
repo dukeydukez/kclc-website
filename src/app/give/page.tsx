@@ -8,6 +8,63 @@ export const metadata: Metadata = {
     "Support the mission of KCLC. Give tithes and offerings in person, by e-Transfer, or online.",
 };
 
+const givingFunds = [
+  {
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-7 w-7">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+      </svg>
+    ),
+    title: "Enhance Our Community Home",
+    description: "Improve, upgrade, and furnish our space.",
+  },
+  {
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-7 w-7">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+      </svg>
+    ),
+    title: "Benevolence Fund",
+    description: "Support families in need within our community.",
+  },
+  {
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-7 w-7">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />
+      </svg>
+    ),
+    title: "Global & Local Missions",
+    description: "Extend our impact near and far.",
+  },
+  {
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-7 w-7">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z" />
+      </svg>
+    ),
+    title: "Technology & Connection",
+    description: "Strengthen live stream media and digital outreach.",
+  },
+  {
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-7 w-7">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+      </svg>
+    ),
+    title: "Children & Youth",
+    description: "Invest in the next generation.",
+  },
+  {
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-7 w-7">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 109.375 7.5H12m0-2.625V7.5m0-2.625A2.625 2.625 0 1114.625 7.5H12m0 0V21m-8.625-9.75h18c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125h-18c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+      </svg>
+    ),
+    title: "General Offering",
+    description: "Sustain our everyday ministry.",
+  },
+];
+
 const givingMethods = [
   {
     icon: (
@@ -128,6 +185,40 @@ export default function GivePage() {
                       Give Now
                     </a>
                   )}
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Where Your Giving Goes */}
+      <section className="bg-white py-20 lg:py-28">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <FadeIn>
+            <h2 className="text-center font-display text-3xl font-bold text-navy md:text-4xl">
+              Where Your Giving Goes
+            </h2>
+            <div className="mx-auto mt-2 h-1 w-16 bg-gold" />
+            <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-relaxed text-subtext">
+              Every gift supports a specific area of ministry. Direct your
+              giving to the cause that moves you, or contribute to our general
+              offering and let us put it where it&rsquo;s needed most.
+            </p>
+          </FadeIn>
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {givingFunds.map((fund, i) => (
+              <FadeIn key={fund.title} delay={i * 0.06}>
+                <div className="h-full rounded-xl border border-silver/40 bg-offwhite p-6 shadow-sm">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gold/10 text-gold">
+                    {fund.icon}
+                  </div>
+                  <h3 className="mt-5 font-display text-lg font-bold text-navy">
+                    {fund.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-subtext">
+                    {fund.description}
+                  </p>
                 </div>
               </FadeIn>
             ))}
