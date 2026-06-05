@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const inter = Inter({
@@ -55,6 +56,7 @@ export default function RootLayout({
         <main>{children}</main>
         <Footer />
         <ScrollToTop />
+        <Analytics />
       </body>
     </html>
   );
