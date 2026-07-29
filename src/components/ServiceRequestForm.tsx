@@ -16,10 +16,30 @@ const services = [
   { id: "other", label: "Other", description: "Something else we can help with" },
 ];
 
-// Services that have a downloadable application form. Add new services here as
-// their forms become available \u2014 the download + upload block appears automatically.
-const SERVICE_FORMS: Record<string, { url: string; label: string }> = {
-  wedding: { url: "/forms/wedding-application-form.pdf", label: "Wedding Application Form" },
+// Services with an application form. Two kinds:
+//  - "download": a PDF the person fills out and uploads back (upload required to submit)
+//  - "external": an online fillable form they complete on another platform (opens in a new tab)
+// Add new services here \u2014 the matching block appears automatically.
+type ServiceForm =
+  | { kind: "download"; url: string; label: string }
+  | { kind: "external"; url: string; label: string };
+
+const SERVICE_FORMS: Record<string, ServiceForm> = {
+  wedding: {
+    kind: "download",
+    url: "/forms/wedding-application-form.pdf",
+    label: "Wedding Application Form",
+  },
+  dedication: {
+    kind: "external",
+    url: "https://docs.google.com/forms/d/e/1FAIpQLSdv8zTMavOTLcdDsxWEQYX915FVaccXbGasb6u1p8-oQitySw/viewform",
+    label: "Child Dedication Form",
+  },
+  baptism: {
+    kind: "external",
+    url: "https://form.jotform.com/261357535859066",
+    label: "Baptism Form",
+  },
 };
 
 const MAX_UPLOAD_BYTES = 4 * 1024 * 1024; // 4MB (Vercel serverless body limit)
@@ -44,10 +64,16 @@ export default function ServiceRequestForm() {
   const [fileError, setFileError] = useState("");
   const formLoadedAt = useRef(Date.now());
 
-  // Selected services that have a downloadable form (drives the download/upload block).
+  // Selected services that have a form, split by kind.
   const formsForSelected = selected
     .map((id) => ({ id, form: SERVICE_FORMS[id] }))
-    .filter((s): s is { id: string; form: { url: string; label: string } } => Boolean(s.form));
+    .filter((s): s is { id: string; form: ServiceForm } => Boolean(s.form));
+  const downloadForms = formsForSelected.filter((s) => s.form.kind === "download");
+  const externalForms = formsForSelected.filter((s) => s.form.kind === "external");
+  // When every selected service is an online form, the person just clicks through —
+  // no need for our name/email/submit, since that form collects their details.
+  const onlyExternal =
+    selected.length > 0 && selected.every((id) => SERVICE_FORMS[id]?.kind === "external");
 
   function handleFileChange(e: FormEvent<HTMLInputElement>) {
     const picked = e.currentTarget.files?.[0] ?? null;
@@ -79,7 +105,7 @@ export default function ServiceRequestForm() {
     e.preventDefault();
     setError("");
 
-    if (formsForSelected.length > 0 && !file) {
+    if (downloadForms.length > 0 && !file) {
       setError("Please upload your completed application form before submitting.");
       return;
     }
@@ -179,6 +205,37 @@ export default function ServiceRequestForm() {
 
       {selected.length > 0 && (
         <div className="mt-8 space-y-4">
+          {externalForms.length > 0 && (
+            <div className="rounded-xl border border-gold/30 bg-gold/5 p-5">
+              <p className="text-sm font-semibold text-navy">
+                Complete your {externalForms.length > 1 ? "forms" : "form"} online
+              </p>
+              <p className="mt-1 text-xs text-subtext">
+                Click the {externalForms.length > 1 ? "buttons" : "button"} below to fill out and
+                submit your {externalForms.length > 1 ? "forms" : "form"} online.
+              </p>
+
+              <div className="mt-4 flex flex-wrap gap-2">
+                {externalForms.map(({ id, form }) => (
+                  <a
+                    key={id}
+                    href={form.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-lg border border-gold/40 bg-white px-4 py-2.5 text-sm font-semibold text-navy transition-colors hover:border-gold hover:bg-gold/5"
+                  >
+                    <svg className="h-4 w-4 text-gold" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                    </svg>
+                    Open {form.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {!onlyExternal && (
+          <>
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label htmlFor="service-name" className="block text-sm font-medium text-navy">
@@ -222,18 +279,18 @@ export default function ServiceRequestForm() {
               placeholder="Anything else you'd like us to know?"
             />
           </div>
-          {formsForSelected.length > 0 && (
+          {downloadForms.length > 0 && (
             <div className="rounded-xl border border-gold/30 bg-gold/5 p-5">
               <p className="text-sm font-semibold text-navy">
-                Application {formsForSelected.length > 1 ? "forms" : "form"}
+                Application {downloadForms.length > 1 ? "forms" : "form"}
               </p>
               <p className="mt-1 text-xs text-subtext">
-                Download the {formsForSelected.length > 1 ? "forms" : "form"} below, fill it
+                Download the {downloadForms.length > 1 ? "forms" : "form"} below, fill it
                 out, and upload it here so our team has everything they need to help you.
               </p>
 
               <div className="mt-4 flex flex-wrap gap-2">
-                {formsForSelected.map(({ id, form }) => (
+                {downloadForms.map(({ id, form }) => (
                   <a
                     key={id}
                     href={form.url}
@@ -295,6 +352,8 @@ export default function ServiceRequestForm() {
           >
             {sending ? "Sending..." : "Submit Request"}
           </button>
+          </>
+          )}
         </div>
       )}
     </form>
