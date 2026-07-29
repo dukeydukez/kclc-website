@@ -16,6 +16,21 @@ const services = [
   { id: "other", label: "Other", description: "Something else we can help with" },
 ];
 
+// Services that have a downloadable application form. Add new services here as
+// their forms become available \u2014 the download + upload block appears automatically.
+const SERVICE_FORMS: Record<string, { url: string; label: string }> = {
+  wedding: { url: "/forms/wedding-application-form.pdf", label: "Wedding Application Form" },
+};
+
+const MAX_UPLOAD_BYTES = 4 * 1024 * 1024; // 4MB (Vercel serverless body limit)
+const ALLOWED_UPLOAD_TYPES = [
+  "application/pdf",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  "image/jpeg",
+  "image/png",
+];
+
 export default function ServiceRequestForm() {
   const [selected, setSelected] = useState<string[]>([]);
   const [name, setName] = useState("");
@@ -25,7 +40,34 @@ export default function ServiceRequestForm() {
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
   const [honeypot, setHoneypot] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+  const [fileError, setFileError] = useState("");
   const formLoadedAt = useRef(Date.now());
+
+  // Selected services that have a downloadable form (drives the download/upload block).
+  const formsForSelected = selected
+    .map((id) => ({ id, form: SERVICE_FORMS[id] }))
+    .filter((s): s is { id: string; form: { url: string; label: string } } => Boolean(s.form));
+
+  function handleFileChange(e: FormEvent<HTMLInputElement>) {
+    const picked = e.currentTarget.files?.[0] ?? null;
+    setFileError("");
+    if (!picked) {
+      setFile(null);
+      return;
+    }
+    if (picked.size > MAX_UPLOAD_BYTES) {
+      setFile(null);
+      setFileError("That file is over 4MB. Please upload a smaller file (PDF works best).");
+      return;
+    }
+    if (!ALLOWED_UPLOAD_TYPES.includes(picked.type)) {
+      setFile(null);
+      setFileError("Please upload a PDF, Word document, or image.");
+      return;
+    }
+    setFile(picked);
+  }
 
   function toggle(id: string) {
     setSelected((prev) =>
@@ -35,26 +77,38 @@ export default function ServiceRequestForm() {
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    setSending(true);
     setError("");
+
+    if (formsForSelected.length > 0 && !file) {
+      setError("Please upload your completed application form before submitting.");
+      return;
+    }
+
+    setSending(true);
 
     const serviceLabels = selected.map(
       (id) => services.find((s) => s.id === id)?.label ?? id,
     );
 
     try {
+      // Sent as multipart/form-data so an optional completed form can ride along
+      // as a file. The API branches on content-type and stays JSON-compatible for
+      // the plain "Send Us a Message" form.
+      const payload = new FormData();
+      payload.append("name", name);
+      payload.append("email", email);
+      payload.append("services", JSON.stringify(serviceLabels));
+      payload.append("details", details);
+      payload.append("formType", "service-request");
+      payload.append("website", honeypot);
+      payload.append("_ts", String(formLoadedAt.current));
+      if (file) {
+        payload.append("attachment", file, file.name);
+      }
+
       const res = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          email,
-          services: serviceLabels,
-          details,
-          formType: "service-request",
-          website: honeypot,
-          _ts: formLoadedAt.current,
-        }),
+        body: payload,
       });
 
       if (!res.ok) {
@@ -168,6 +222,56 @@ export default function ServiceRequestForm() {
               placeholder="Anything else you'd like us to know?"
             />
           </div>
+          {formsForSelected.length > 0 && (
+            <div className="rounded-xl border border-gold/30 bg-gold/5 p-5">
+              <p className="text-sm font-semibold text-navy">
+                Application {formsForSelected.length > 1 ? "forms" : "form"}
+              </p>
+              <p className="mt-1 text-xs text-subtext">
+                Download the {formsForSelected.length > 1 ? "forms" : "form"} below, fill it
+                out, and upload it here so our team has everything they need to help you.
+              </p>
+
+              <div className="mt-4 flex flex-wrap gap-2">
+                {formsForSelected.map(({ id, form }) => (
+                  <a
+                    key={id}
+                    href={form.url}
+                    download
+                    className="inline-flex items-center gap-2 rounded-lg border border-gold/40 bg-white px-4 py-2.5 text-sm font-semibold text-navy transition-colors hover:border-gold hover:bg-gold/5"
+                  >
+                    <svg className="h-4 w-4 text-gold" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                    </svg>
+                    Download {form.label}
+                  </a>
+                ))}
+              </div>
+
+              <div className="mt-5">
+                <label htmlFor="service-upload" className="block text-sm font-medium text-navy">
+                  Upload completed form <span className="font-normal text-gold">(required)</span>
+                </label>
+                <input
+                  id="service-upload"
+                  type="file"
+                  accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                  onChange={handleFileChange}
+                  className="mt-1.5 block w-full text-sm text-subtext file:mr-4 file:cursor-pointer file:rounded-lg file:border-0 file:bg-gold file:px-4 file:py-2.5 file:text-sm file:font-semibold file:text-navy hover:file:bg-gold-dark"
+                />
+                {file && !fileError && (
+                  <p className="mt-2 text-xs text-navy">
+                    Attached: <span className="font-medium">{file.name}</span>
+                  </p>
+                )}
+                {fileError && <p className="mt-2 text-xs text-red-600">{fileError}</p>}
+                <p className="mt-2 text-xs text-subtext">
+                  PDF, Word, or image, up to 4MB. Download the form above, fill it out, and upload it to submit your request.
+                </p>
+              </div>
+            </div>
+          )}
+
           {/* Honeypot - hidden from real users, bots auto-fill it */}
           <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", top: "-9999px" }}>
             <label htmlFor="service-website">Website</label>
