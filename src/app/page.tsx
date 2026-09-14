@@ -7,6 +7,7 @@ import TestimonialCarousel from "@/components/TestimonialCarousel";
 import LiveOrCountdown from "@/components/LiveOrCountdown";
 import FadeIn from "@/components/FadeIn";
 import SubscribeForm from "@/components/SubscribeForm";
+import WelcomeVideo from "@/components/WelcomeVideo";
 
 const ministryCards = [
   {
@@ -84,6 +85,9 @@ export default function HomePage() {
             </h2>
           </FadeIn>
           <FadeIn delay={0.1}>
+            <WelcomeVideo videoId="Iu5SVTaOAlk" />
+          </FadeIn>
+          <FadeIn delay={0.15}>
             <div className="mx-auto mt-6 max-w-2xl space-y-4 text-lg leading-relaxed text-subtext">
               <p>
                 We&apos;re a church that believes in the power of restoration. No
