@@ -8,6 +8,7 @@ const quickLinks = [
   { label: "Watch", href: "/watch" },
   { label: "Give", href: "/give" },
   { label: "Connect", href: "/connect" },
+  { label: "Rent Our Space", href: "/rent" },
 ];
 
 const socialLinks = [

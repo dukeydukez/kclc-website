@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, type FormEvent } from "react";
+import { useState, useRef, useEffect, type FormEvent } from "react";
 
 const services = [
   { id: "counselling", label: "Pastoral Counselling", description: "One-on-one spiritual guidance and support" },
@@ -63,6 +63,14 @@ export default function ServiceRequestForm() {
   const [file, setFile] = useState<File | null>(null);
   const [fileError, setFileError] = useState("");
   const formLoadedAt = useRef(Date.now());
+
+  // Deep link: /connect?service=space-rental#services arrives with that service ticked.
+  useEffect(() => {
+    const requested = new URLSearchParams(window.location.search).get("service");
+    if (requested && services.some((s) => s.id === requested)) {
+      setSelected((prev) => (prev.includes(requested) ? prev : [...prev, requested]));
+    }
+  }, []);
 
   // Selected services that have a form, split by kind.
   const formsForSelected = selected
@@ -276,7 +284,11 @@ export default function ServiceRequestForm() {
               value={details}
               onChange={(e) => setDetails(e.target.value)}
               className="mt-1.5 w-full resize-none rounded-lg border border-silver/60 bg-white px-4 py-3 text-sm text-darktext outline-none transition-colors focus:border-gold focus:ring-2 focus:ring-gold/20"
-              placeholder="Anything else you'd like us to know?"
+              placeholder={
+                selected.includes("space-rental")
+                  ? "Event type, preferred date and time, and expected guest count"
+                  : "Anything else you'd like us to know?"
+              }
             />
           </div>
           {downloadForms.length > 0 && (

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useRef, type FormEvent } from "react";
 import PageHero from "@/components/PageHero";
 import FadeIn from "@/components/FadeIn";
@@ -157,8 +158,46 @@ export default function ConnectPage() {
         </div>
       </section>
 
+      {/* Rent Our Space */}
+      <section className="bg-white pb-20 lg:pb-28">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <FadeIn>
+            <Link
+              href="/rent"
+              className="group grid overflow-hidden rounded-2xl bg-navy md:grid-cols-5"
+            >
+              <div className="relative aspect-[16/9] md:col-span-2 md:aspect-auto">
+                <Image
+                  src="/rent/hall-wide.jpg"
+                  alt="Kingsway main hall set with rows of chairs facing the stage"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(min-width: 768px) 40vw, 100vw"
+                />
+              </div>
+              <div className="flex flex-col justify-center p-8 md:col-span-3 md:p-10">
+                <p className="text-xs font-semibold uppercase tracking-widest text-gold">
+                  Rent Our Space
+                </p>
+                <h3 className="mt-3 font-display text-2xl font-bold text-white md:text-3xl">
+                  Hosting an event? Our 4,200 sq ft hall is available to rent.
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-white/70">
+                  Conferences, workshops, concerts, receptions and community gatherings,
+                  with a stage, a full sound system and free parking.
+                </p>
+                <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-gold">
+                  See the space
+                  <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">&rarr;</span>
+                </span>
+              </div>
+            </Link>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* How Can We Serve You */}
-      <section className="bg-offwhite py-20 lg:py-28">
+      <section id="services" className="scroll-mt-24 bg-offwhite py-20 lg:py-28">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <FadeIn>
             <h2 className="font-display text-3xl font-bold text-navy md:text-4xl">
